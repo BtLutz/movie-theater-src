@@ -7,13 +7,12 @@ public class Movie {
     private final String title;
     private final Duration runningTime;
     private final double ticketPrice;
-    private final int specialCode;
-
-    public Movie(String title, Duration runningTime, double ticketPrice, int specialCode) {
+    private final boolean isSpecialMovie;
+    public Movie(String title, Duration runningTime, double ticketPrice, boolean isSpecialMovie) {
         this.title = title;
         this.runningTime = runningTime;
         this.ticketPrice = ticketPrice;
-        this.specialCode = specialCode;
+        this.isSpecialMovie = isSpecialMovie;
     }
 
     public String getTitle() {
@@ -34,8 +33,7 @@ public class Movie {
 
     private double getDiscount(int showSequence) {
         double specialDiscount = 0;
-        int MOVIE_CODE_SPECIAL = 1;
-        if (MOVIE_CODE_SPECIAL == specialCode) {
+        if (isSpecialMovie) {
             specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
         }
 
@@ -62,11 +60,11 @@ public class Movie {
         return Double.compare(movie.ticketPrice, ticketPrice) == 0
                 && Objects.equals(title, movie.title)
                 && Objects.equals(runningTime, movie.runningTime)
-                && Objects.equals(specialCode, movie.specialCode);
+                && Objects.equals(isSpecialMovie, movie.isSpecialMovie);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, runningTime, ticketPrice, specialCode);
+        return Objects.hash(title, runningTime, ticketPrice, isSpecialMovie);
     }
 }

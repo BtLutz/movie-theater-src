@@ -12,9 +12,9 @@ public class Theater {
     private final List<Showing> schedule;
 
     public Theater() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, 1);
-        Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), 11, 0);
-        Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), 9, 0);
+        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
+        Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), 11, false);
+        Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), 9, false);
         this.schedule = List.of(
                 new Showing(turningRed, 1, LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0))),
                 new Showing(spiderMan, 2, LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0))),
