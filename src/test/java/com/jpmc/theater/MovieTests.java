@@ -1,89 +1,52 @@
 package com.jpmc.theater;
 
+import org.javamoney.moneta.FastMoney;
 import org.junit.jupiter.api.Test;
 
+import javax.money.Monetary;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieTests {
     @Test
-    void testCalculateTicketPriceWithSpecialMovie() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
-        Showing showing = new Showing(spiderMan, 5, LocalDateTime.now());
-        assertEquals(10, spiderMan.calculateTicketPrice(showing));
+    void testEqualsWithEqualMovie() {
+        var movie1 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        var movie2 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        assertEquals(movie1, movie2);
     }
 
     @Test
-    void testCalculateTicketPriceWithFirstShowing() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 1, LocalDateTime.now());
-        assertEquals(9.5, spiderMan.calculateTicketPrice(showing));
+    void testEqualsWithDifferentTicketPrice() {
+        var movie1 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        var movie2 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(9, Monetary.getCurrency(Locale.US)), false);
+        assertNotEquals(movie1, movie2);
     }
 
     @Test
-    void testCalculateTicketPriceWithSecondShowing() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 2, LocalDateTime.now());
-        assertEquals(10.5, spiderMan.calculateTicketPrice(showing));
+    void testEqualsWithDifferentTitle() {
+        var movie1 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        var movie2 = new Movie("Superbad II: Revenge of The Nerds", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        assertNotEquals(movie1, movie2);
     }
 
     @Test
-    void testCalculateTicketPriceWithFirstShowingSpecialMovie() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
-        Showing showing = new Showing(spiderMan, 1, LocalDateTime.now());
-        assertEquals(9.5, spiderMan.calculateTicketPrice(showing));
+    void testEqualsWithDifferentRunningTime() {
+        var movie1 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        var movie2 = new Movie("Superbad", Duration.ofMinutes(91), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        assertNotEquals(movie1, movie2);
     }
 
     @Test
-    void testCalculateTicketPriceWithSecondShowingSpecialMovie() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
-        Showing showing = new Showing(spiderMan, 2, LocalDateTime.now());
-        assertEquals(10, spiderMan.calculateTicketPrice(showing));
+    void testEqualsWithDifferentIsSpecialMovie() {
+        var movie1 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), false);
+        var movie2 = new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10, Monetary.getCurrency(Locale.US)), true);
+        assertNotEquals(movie1, movie2);
     }
 
     @Test
-    void testCalculateTicketPriceWithFirstShowingMatinee() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 1, LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
-        assertEquals(9.38, spiderMan.calculateTicketPrice(showing));
-    }
-
-    @Test
-    void testCalculatePriceWithSecondShowingMatinee() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 2, LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
-        assertEquals(9.38, spiderMan.calculateTicketPrice(showing));
-    }
-
-    @Test
-    void testCalculatePriceWithMatinee() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 3, LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
-        assertEquals(9.38, spiderMan.calculateTicketPrice(showing));
-    }
-
-    @Test
-    void testCalculatePriceWithMatineeSpecialMovie() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
-        Showing showing = new Showing(spiderMan, 3, LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
-        assertEquals(9.38, spiderMan.calculateTicketPrice(showing));
-    }
-
-    @Test
-    void testCalculatePriceWithShowingBefore11() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 3, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 59)));
-        assertEquals(12.5, spiderMan.calculateTicketPrice(showing));
-    }
-
-    @Test
-    void testCalculatePriceWithShowingAfter4() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false);
-        Showing showing = new Showing(spiderMan, 3, LocalDateTime.of(LocalDate.now(), LocalTime.of(4, 1)));
-        assertEquals(12.5, spiderMan.calculateTicketPrice(showing));
+    void testMovieWithUnRoundedTicketPrice() {
+        assertThrows(IllegalArgumentException.class, () -> new Movie("Superbad", Duration.ofMinutes(90), FastMoney.of(10.001, Monetary.getCurrency(Locale.US)), false));
     }
 }
