@@ -68,6 +68,16 @@ public class ReservationTests {
     assertEquals(34.875, reservation.totalFee());
   }
 
+  @Test
+  void testTotalFeeWithDayDiscount() {
+    var customer = new Customer("John Doe");
+    var showing = new Showing(
+        new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false),
+        LocalDateTime.of(2023, 1, 7, 0, 0)
+    );
+    var reservation = new Reservation(customer, showing, 3, 3);
+    assertEquals(34.5, reservation.totalFee());
+  }
 
   @Test
   void testReservation() {

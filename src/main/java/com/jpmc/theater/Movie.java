@@ -38,25 +38,31 @@ public class Movie {
   }
 
   private double getDiscount(int sequence, LocalDateTime startTime) {
-    double specialDiscount = 0;
-    if (isSpecial) {
-      specialDiscount = ticketPrice * 0.2;
+    return Collections.max(List.of(getSpecialDiscount(), getSequenceDiscount(sequence),
+        getMatineeDiscount(startTime), getDayDiscount(startTime)));
+  }
+
+  private double getMatineeDiscount(LocalDateTime startTime) {
+    return isMatinee(startTime) ? ticketPrice * 0.25 : 0;
+  }
+
+  private static double getSequenceDiscount(int sequence) {
+    switch (sequence) {
+      case 1:
+        return 3;
+      case 2:
+        return 2;
+      default:
+        return 0;
     }
+  }
 
-    double sequenceDiscount = 0;
-    if (sequence == 1) {
-      sequenceDiscount = 3;
-    } else if (sequence == 2) {
+  private double getSpecialDiscount() {
+    return isSpecial ? ticketPrice * 0.2 : 0;
+  }
 
-      sequenceDiscount = 2;
-    }
-
-    double matineeDiscount = 0;
-    if (isMatinee(startTime)) {
-      matineeDiscount = ticketPrice * 0.25;
-    }
-
-    return Collections.max(List.of(specialDiscount, sequenceDiscount, matineeDiscount));
+  private double getDayDiscount(LocalDateTime startTime) {
+    return startTime.getDayOfMonth() == 7 ? 1 : 0;
   }
 
   @Override
