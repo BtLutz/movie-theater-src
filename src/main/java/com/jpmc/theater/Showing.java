@@ -21,10 +21,6 @@ public class Showing {
         return showStartTime;
     }
 
-    public double getMovieFee() {
-        return movie.getTicketPrice();
-    }
-
     public int getSequenceOfTheDay() {
         return sequenceOfTheDay;
     }
