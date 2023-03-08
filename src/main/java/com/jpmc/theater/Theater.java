@@ -1,8 +1,9 @@
 package com.jpmc.theater;
 
-import org.javamoney.moneta.FastMoney;
+import org.javamoney.moneta.Money;
 
 import javax.money.Monetary;
+import javax.money.format.MonetaryFormats;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,9 +18,9 @@ public class Theater {
 
     public Theater() {
         var currency = Monetary.getCurrency(Locale.US);
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), FastMoney.of(12.5, currency), true);
-        Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), FastMoney.of(11, currency), false);
-        Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), FastMoney.of(9, currency), false);
+        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), Money.of(12.5, currency), true);
+        Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), Money.of(11, currency), false);
+        Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), Money.of(9, currency), false);
         this.schedule = List.of(
                 new Showing(turningRed, 1, LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0))),
                 new Showing(spiderMan, 2, LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0))),
@@ -47,7 +48,7 @@ public class Theater {
         System.out.println(LocalDate.now());
         System.out.println("===================================================");
         schedule.forEach(s ->
-                System.out.println(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovie().getTicketPrice().getNumber())
+                System.out.println(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + MonetaryFormats.getAmountFormat(Locale.US).format(s.getMovie().getTicketPrice()))
         );
         System.out.println("===================================================");
     }

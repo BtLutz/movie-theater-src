@@ -1,12 +1,14 @@
 package com.jpmc.theater;
 
+import lombok.Value;
+
 import javax.money.MonetaryAmount;
 
+@Value
 public class Reservation {
-
-    private final Customer customer;
-    private final Showing showing;
-    private final int audienceCount;
+    Customer customer;
+    Showing showing;
+    int audienceCount;
 
     public Reservation(Customer customer, Showing showing, int audienceCount) {
         if (audienceCount < 1) {
@@ -15,10 +17,6 @@ public class Reservation {
         this.customer = customer;
         this.showing = showing;
         this.audienceCount = audienceCount;
-    }
-
-    public Customer getCustomer() {
-        return customer;
     }
 
     public MonetaryAmount getTotalFee() {

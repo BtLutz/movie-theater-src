@@ -1,7 +1,9 @@
 package com.jpmc.theater;
 
-import org.javamoney.moneta.FastMoney;
+import net.joshka.junit.json.params.JsonFileSource;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import javax.money.Monetary;
 
@@ -16,7 +18,7 @@ public class TheaterTests {
         Theater theater = new Theater();
         Customer john = new Customer("John Doe");
         Reservation reservation = theater.reserve(john, 2, 4);
-        assertEquals(FastMoney.of(50, Monetary.getCurrency(Locale.US)), reservation.getTotalFee());
+        assertEquals(Money.of(50, Monetary.getCurrency(Locale.US)), reservation.getTotalFee());
         assertEquals(john, reservation.getCustomer());
     }
 
@@ -30,5 +32,11 @@ public class TheaterTests {
     void testPrintMovieSchedule() {
         Theater theater = new Theater();
         theater.printSchedule();
+    }
+
+    @ParameterizedTest
+    @JsonFileSource(resources="/resources/movie-schedule.json")
+    void testGetJsonSchedule() {
+
     }
 }

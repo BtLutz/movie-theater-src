@@ -1,6 +1,6 @@
 package com.jpmc.theater;
 
-import org.javamoney.moneta.FastMoney;
+import lombok.Value;
 import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
@@ -11,29 +11,18 @@ import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
+@Value
 public class Showing {
-    private final Movie movie;
-    private final int sequenceOfTheDay;
-    private final LocalDateTime showStartTime;
-    private final CurrencyUnit currencyUnit;
+    Movie movie;
+    int sequenceOfTheDay;
+    LocalDateTime showStartTime;
+    CurrencyUnit currencyUnit;
 
     public Showing(Movie movie, int sequenceOfTheDay, LocalDateTime showStartTime) {
         this.movie = movie;
         this.sequenceOfTheDay = sequenceOfTheDay;
         this.showStartTime = showStartTime;
         this.currencyUnit = movie.getTicketPrice().getCurrency();
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public LocalDateTime getShowStartTime() {
-        return showStartTime;
-    }
-
-    public int getSequenceOfTheDay() {
-        return sequenceOfTheDay;
     }
 
     public MonetaryAmount calculateTicketPrice() {
@@ -51,16 +40,16 @@ public class Showing {
     private MonetaryAmount getSequenceDiscount() {
         switch (sequenceOfTheDay) {
             case 1:
-                return FastMoney.of(3, currencyUnit);
+                return Money.of(3, currencyUnit);
             case 2:
-                return FastMoney.of(2, currencyUnit);
+                return Money.of(2, currencyUnit);
             default:
                 return Money.zero(currencyUnit);
         }
     }
 
     private MonetaryAmount getDayDiscount() {
-        return showStartTime.getDayOfMonth() == 7 ? FastMoney.of(1, currencyUnit) : Money.zero(currencyUnit);
+        return showStartTime.getDayOfMonth() == 7 ? Money.of(1, currencyUnit) : Money.zero(currencyUnit);
     }
 
     private MonetaryAmount getTimeDiscount() {

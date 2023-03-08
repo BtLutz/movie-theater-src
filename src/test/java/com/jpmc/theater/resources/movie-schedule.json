@@ -1,0 +1,11 @@
+{
+  "schedule": [
+    {
+      "movie": {
+        "title": "Turning Red",
+        "runningTime": "1 hour 25 minutes",
+        "ticketPrice": ""
+      }
+    }
+  ]
+}
