@@ -1,25 +1,32 @@
 package com.jpmc.theater;
 
-import lombok.Value;
-
-import javax.money.MonetaryAmount;
-
-@Value
 public class Reservation {
-    Customer customer;
-    Showing showing;
-    int audienceCount;
+    private final Customer customer;
+
+
+    private final Showing showing;
+    private final int audienceCount;
 
     public Reservation(Customer customer, Showing showing, int audienceCount) {
         if (audienceCount < 1) {
-            throw new IllegalArgumentException("Expected audienceCount to be greater than zero, but got " + audienceCount);
+            throw new IllegalArgumentException("audienceCount must be greater than zero.");
         }
         this.customer = customer;
         this.showing = showing;
         this.audienceCount = audienceCount;
     }
 
-    public MonetaryAmount getTotalFee() {
-        return showing.getMovie().getTicketPrice().multiply(audienceCount);
+    public double totalFee() {
+        return showing.calculateFee(audienceCount);
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+    public int getAudienceCount() {
+        return audienceCount;
+    }
+    public Showing getShowing() {
+        return showing;
     }
 }
