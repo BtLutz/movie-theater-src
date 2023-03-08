@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ReservationTests {
 
     @Test
-    void testTotalFeeWithSpecialDiscountAndSequenceDiscount() {
+    void testCalculateFee() {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true),
