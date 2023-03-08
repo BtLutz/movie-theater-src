@@ -19,7 +19,7 @@ public class ReservationTests {
                 3,
                 LocalDateTime.now()
         );
-        var reservation = new Reservation(customer, showing, 3);
+        var reservation = new Reservation(customer, showing, 3, 3);
         assertEquals(37.5, reservation.totalFee());
     }
     @Test
@@ -30,7 +30,7 @@ public class ReservationTests {
                 1,
                 LocalDateTime.now()
         );
-        var reservation = new Reservation(customer, showing, 3);
+        var reservation = new Reservation(customer, showing, 3, 1);
         assertEquals(28.5, reservation.totalFee());
     }
 
@@ -42,7 +42,7 @@ public class ReservationTests {
                 1,
                 LocalDateTime.now()
         );
-        var reservation = new Reservation(customer, showing, 3);
+        var reservation = new Reservation(customer, showing, 3, 1);
         assertEquals(37.2, reservation.totalFee());
     }
 
@@ -54,7 +54,7 @@ public class ReservationTests {
                 2,
                 LocalDateTime.now()
         );
-        var reservation = new Reservation(customer, showing, 3);
+        var reservation = new Reservation(customer, showing, 3, 2);
         assertEquals(31.5, reservation.totalFee());
     }
     @Test
@@ -66,7 +66,7 @@ public class ReservationTests {
                 1,
                 LocalDateTime.now()
         );
-        var reservation = new Reservation(customer, showing, audienceCount);
+        var reservation = new Reservation(customer, showing, audienceCount, 1);
         assertEquals(customer, reservation.getCustomer());
         assertEquals(showing, reservation.getShowing());
         assertEquals(audienceCount, reservation.getAudienceCount());
@@ -81,6 +81,6 @@ public class ReservationTests {
                 1,
                 LocalDateTime.now()
         );
-        assertThrows(IllegalArgumentException.class, () -> new Reservation(customer, showing, audienceCount));
+        assertThrows(IllegalArgumentException.class, () -> new Reservation(customer, showing, audienceCount, 1));
     }
 }

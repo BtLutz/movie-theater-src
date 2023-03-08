@@ -6,12 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TheaterTests {
     @Test
-    void totalFeeForCustomer() {
-        Theater theater = new Theater();
-        Customer john = new Customer("John Doe");
+    void testReserveWithSpecialDiscount() {
+        var theater = new Theater();
+        var john = new Customer("John Doe");
+        var audienceCount = 4;
+        var sequence = 2;
         Reservation reservation = theater.reserve(john, 2, 4);
-//        System.out.println("You have to pay " + reservation.getTotalFee());
-        assertEquals(reservation.totalFee(), 50);
+        assertEquals(john, reservation.getCustomer());
+        assertEquals(audienceCount, reservation.getAudienceCount());
+        assertEquals(sequence, reservation.getSequence());
+        assertEquals(40, reservation.totalFee());
     }
 
     @Test

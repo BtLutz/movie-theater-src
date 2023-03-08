@@ -35,7 +35,7 @@ public class Theater {
             ex.printStackTrace();
             throw new IllegalStateException("not able to find any showing for given sequence " + sequence);
         }
-        return new Reservation(customer, showing, audienceCount);
+        return new Reservation(customer, showing, audienceCount, sequence);
     }
 
     public void printSchedule() {
