@@ -16,7 +16,6 @@ public class ReservationTests {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false),
-                3,
                 LocalDateTime.now()
         );
         var reservation = new Reservation(customer, showing, 3, 3);
@@ -27,7 +26,6 @@ public class ReservationTests {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true),
-                1,
                 LocalDateTime.now()
         );
         var reservation = new Reservation(customer, showing, 3, 1);
@@ -39,7 +37,6 @@ public class ReservationTests {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 15.5, true),
-                1,
                 LocalDateTime.now()
         );
         var reservation = new Reservation(customer, showing, 3, 1);
@@ -51,7 +48,6 @@ public class ReservationTests {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, false),
-                2,
                 LocalDateTime.now()
         );
         var reservation = new Reservation(customer, showing, 3, 2);
@@ -63,7 +59,6 @@ public class ReservationTests {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true),
-                1,
                 LocalDateTime.now()
         );
         var reservation = new Reservation(customer, showing, audienceCount, 1);
@@ -78,7 +73,6 @@ public class ReservationTests {
         var customer = new Customer("John Doe");
         var showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true),
-                1,
                 LocalDateTime.now()
         );
         assertThrows(IllegalArgumentException.class, () -> new Reservation(customer, showing, audienceCount, 1));

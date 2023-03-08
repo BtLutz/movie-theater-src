@@ -4,12 +4,10 @@ import java.time.LocalDateTime;
 
 public class Showing {
     private final Movie movie;
-    private final int sequenceOfTheDay;
     private final LocalDateTime showStartTime;
 
-    public Showing(Movie movie, int sequenceOfTheDay, LocalDateTime showStartTime) {
+    public Showing(Movie movie, LocalDateTime showStartTime) {
         this.movie = movie;
-        this.sequenceOfTheDay = sequenceOfTheDay;
         this.showStartTime = showStartTime;
     }
 
@@ -19,10 +17,6 @@ public class Showing {
 
     public LocalDateTime getStartTime() {
         return showStartTime;
-    }
-
-    public int getSequenceOfTheDay() {
-        return sequenceOfTheDay;
     }
 
     public double calculateFee(int audienceCount, int sequence) {
