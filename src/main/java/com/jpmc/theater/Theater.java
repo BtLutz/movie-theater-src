@@ -29,24 +29,25 @@ public class Theater {
   }
 
   public Reservation reserve(Customer customer, int sequence, int audienceCount) {
-    Showing showing;
     try {
-      showing = schedule.get(sequence - 1);
-    } catch (RuntimeException ex) {
-      ex.printStackTrace();
-      throw new IllegalStateException(
+      var showing = schedule.get(sequence - 1);
+      return new Reservation(customer, showing, audienceCount, sequence);
+    } catch (ArrayIndexOutOfBoundsException ex) {
+      throw new IllegalArgumentException(
           "not able to find any showing for given sequence " + sequence);
     }
-    return new Reservation(customer, showing, audienceCount, sequence);
   }
 
   public void printSchedule() {
     System.out.println(LocalDate.now());
     System.out.println("===================================================");
     for (int i = 0; i < schedule.size(); i++) {
-      var s = schedule.get(i);
-      System.out.printf("%s: %s %s %s $%s", i + 1, s.getStartTime(), s.getMovie().getTitle(),
-          humanReadableFormat(s.getMovie().getRunningTime()), s.getMovie().getTicketPrice());
+      var showing = schedule.get(i);
+      var movie = showing.getMovie();
+      System.out.printf("%s: %s %s %s $%s\n", i + 1, showing.getStartTime(),
+          movie.getTitle(),
+          humanReadableFormat(movie.getRunningTime()),
+          movie.getTicketPrice());
     }
     System.out.println("===================================================");
   }
