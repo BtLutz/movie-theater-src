@@ -29,13 +29,14 @@ public class Theater {
   }
 
   public Reservation reserve(Customer customer, int sequence, int audienceCount) {
+    Showing showing;
     try {
-      var showing = schedule.get(sequence - 1);
-      return new Reservation(customer, showing, audienceCount, sequence);
+      showing = schedule.get(sequence - 1);
     } catch (ArrayIndexOutOfBoundsException ex) {
       throw new IllegalArgumentException(
           "not able to find any showing for given sequence " + sequence);
     }
+    return new Reservation(customer, showing, audienceCount, sequence);
   }
 
   public void printSchedule() {
@@ -52,7 +53,7 @@ public class Theater {
     System.out.println("===================================================");
   }
 
-  public String humanReadableFormat(Duration duration) {
+  private String humanReadableFormat(Duration duration) {
     long hour = duration.toHours();
     long remainingMin = duration.toMinutes() - TimeUnit.HOURS.toMinutes(duration.toHours());
 
