@@ -18,7 +18,7 @@ public class Reservation {
     }
 
     public double totalFee() {
-        return showing.calculateFee(audienceCount);
+        return showing.calculateFee(audienceCount, sequence);
     }
 
     public Customer getCustomer() {

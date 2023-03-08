@@ -28,20 +28,20 @@ public class Movie {
         return ticketPrice;
     }
 
-    public double calculateTicketPrice(Showing showing) {
-        return ticketPrice - getDiscount(showing.getSequenceOfTheDay());
+    public double calculateTicketPrice(int sequence) {
+        return ticketPrice - getDiscount(sequence);
     }
 
-    private double getDiscount(int showSequence) {
+    private double getDiscount(int sequence) {
         double specialDiscount = 0;
         if (isSpecial) {
             specialDiscount = ticketPrice * 0.2;
         }
 
         double sequenceDiscount = 0;
-        if (showSequence == 1) {
+        if (sequence == 1) {
             sequenceDiscount = 3;
-        } else if (showSequence == 2) {
+        } else if (sequence == 2) {
 
             sequenceDiscount = 2;
         }
