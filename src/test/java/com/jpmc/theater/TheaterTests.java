@@ -14,12 +14,20 @@ public class TheaterTests {
     var theater = new Theater();
     var john = new Customer("John Doe");
     var audienceCount = 4;
-    var sequence = 2;
-    Reservation reservation = theater.reserve(john, 2, 4);
+    var sequence = 5;
+    var reservation = theater.reserve(john, sequence, 4);
     assertEquals(john, reservation.getCustomer());
     assertEquals(audienceCount, reservation.getAudienceCount());
     assertEquals(sequence, reservation.getSequence());
     assertEquals(40, reservation.totalFee());
+  }
+
+  @Test
+  void testReserveWithMatineeDiscount() {
+    var theater = new Theater();
+    var john = new Customer("John Doe");
+    var reservation = theater.reserve(john, 2, 4);
+    assertEquals(37.5, reservation.totalFee());
   }
 
   @ParameterizedTest

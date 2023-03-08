@@ -61,7 +61,6 @@ public class Theater {
         handlePlural(remainingMin));
   }
 
-  // (s) postfix should be added to handle plural correctly
   private String handlePlural(long value) {
     return value == 1 ? "" : "s";
   }

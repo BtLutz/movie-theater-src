@@ -4,7 +4,6 @@ public class Reservation {
     private final Customer customer;
     private final Showing showing;
     private final int audienceCount;
-
     private final int sequence;
 
     public Reservation(Customer customer, Showing showing, int audienceCount, int sequence) {

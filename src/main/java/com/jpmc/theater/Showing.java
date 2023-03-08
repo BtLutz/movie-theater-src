@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 public class Showing {
     private final Movie movie;
-    private final LocalDateTime showStartTime;
+    private final LocalDateTime startTime;
 
-    public Showing(Movie movie, LocalDateTime showStartTime) {
+    public Showing(Movie movie, LocalDateTime startTime) {
         this.movie = movie;
-        this.showStartTime = showStartTime;
+        this.startTime = startTime;
     }
 
     public Movie getMovie() {
@@ -16,10 +16,10 @@ public class Showing {
     }
 
     public LocalDateTime getStartTime() {
-        return showStartTime;
+        return startTime;
     }
 
     public double calculateFee(int audienceCount, int sequence) {
-        return movie.calculateTicketPrice(sequence) * audienceCount;
+        return movie.calculateTicketPrice(sequence, startTime) * audienceCount;
     }
 }
