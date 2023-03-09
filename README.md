@@ -2,6 +2,24 @@
 
 This is a poorly written application, and we're expecting the candidate to greatly improve this code base.
 
+## Requirements
+* Maven
+* Java 11
+* Git
+
+## Running
+1. clone the project
+2. `cd` into the directory
+3. Package the project
+4. Run the code
+
+```
+git clone https://github.com/BtLutz/movie-theater-src
+cd movie-theater-src
+mvn package
+java -cp target/movie-theater-1.0-SNAPSHOT.jar com.jpmc.theater.Theater
+```
+
 ## Instructions
 * **Consider this to be your project! Feel free to make any changes**
 * There are several deliberate design, code quality and test issues in the current code, they should be identified and resolved
