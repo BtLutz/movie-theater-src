@@ -1,5 +1,8 @@
 package com.jpmc.theater;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Reservation {
 
   private final Customer customer;
@@ -18,7 +21,8 @@ public class Reservation {
   }
 
   public double totalFee() {
-    return showing.calculateFee(audienceCount, sequence);
+    var totalFee = showing.calculateFee(audienceCount, sequence);
+    return BigDecimal.valueOf(totalFee).setScale(2, RoundingMode.HALF_UP).doubleValue();
   }
 
   public Customer getCustomer() {

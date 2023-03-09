@@ -65,7 +65,7 @@ public class ReservationTests {
         LocalDateTime.of(2023, 1, 1, hour, 0)
     );
     var reservation = new Reservation(customer, showing, 3, 1);
-    assertEquals(34.875, reservation.totalFee());
+    assertEquals(34.88, reservation.totalFee());
   }
 
   @Test
