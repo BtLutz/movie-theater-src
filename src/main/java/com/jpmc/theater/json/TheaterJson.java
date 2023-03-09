@@ -2,41 +2,34 @@ package com.jpmc.theater.json;
 
 import com.jpmc.theater.Showing;
 import com.jpmc.theater.Theater;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import lombok.Value;
 
+@Value
 public class TheaterJson {
 
-  private final String localDate;
+  String localDate;
 
-  private final List<ShowingJson> schedule;
+  List<ShowingJson> schedule;
 
   public TheaterJson(Theater theater) {
     this.localDate = theater.getLocalDate().toString();
-    this.schedule = new ArrayList<>();
-    for (int i = 0; i < theater.getSchedule().size(); i++) {
-      var showing = theater.getSchedule().get(i);
-      var showingJson = new ShowingJson(showing, i + 1);
-      this.schedule.add(showingJson);
-    }
+    var showings = theater.getSchedule();
+    this.schedule = IntStream.range(0, showings.size())
+        .mapToObj((i -> new ShowingJson(showings.get(i), i + 1))).collect(Collectors.toList());
   }
 
-  public String getLocalDate() {
-    return localDate;
-  }
-
-  public List<ShowingJson> getSchedule() {
-    return schedule;
-  }
-
+  @Value
   public static class ShowingJson {
 
-    private final int sequence;
+    int sequence;
 
-    private final String startTime;
-    private final String title;
-    private final String runningTime;
-    private final String ticketPrice;
+    String startTime;
+    String title;
+    String runningTime;
+    String ticketPrice;
 
     public ShowingJson(Showing showing, int sequence) {
       var movie = showing.getMovie();
@@ -46,27 +39,6 @@ public class TheaterJson {
       this.runningTime = Theater.humanReadableFormat(movie.getRunningTime());
       this.ticketPrice = String.format("$%s", movie.getTicketPrice());
     }
-
-    public int getSequence() {
-      return sequence;
-    }
-
-    public String getStartTime() {
-      return startTime;
-    }
-
-    public String getTitle() {
-      return title;
-    }
-
-    public String getRunningTime() {
-      return runningTime;
-    }
-
-    public String getTicketPrice() {
-      return ticketPrice;
-    }
-
   }
 }
 
