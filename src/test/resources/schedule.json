@@ -6,7 +6,7 @@
       "startTime": "2023-01-01T09:00",
       "title": "Turning Red",
       "runningTime": "1 hour 25 minutes",
-      "ticketPrice": "$11.0"
+      "ticketPrice": "$11"
     },
     {
       "sequence": 2,
@@ -20,14 +20,14 @@
       "startTime": "2023-01-01T12:50",
       "title": "The Batman",
       "runningTime": "1 hour 35 minutes",
-      "ticketPrice": "$9.0"
+      "ticketPrice": "$9"
     },
     {
       "sequence": 4,
       "startTime": "2023-01-01T14:30",
       "title": "Turning Red",
       "runningTime": "1 hour 25 minutes",
-      "ticketPrice": "$11.0"
+      "ticketPrice": "$11"
     },
     {
       "sequence": 5,
@@ -41,14 +41,14 @@
       "startTime": "2023-01-01T17:50",
       "title": "The Batman",
       "runningTime": "1 hour 35 minutes",
-      "ticketPrice": "$9.0"
+      "ticketPrice": "$9"
     },
     {
       "sequence": 7,
       "startTime": "2023-01-01T19:30",
       "title": "Turning Red",
       "runningTime": "1 hour 25 minutes",
-      "ticketPrice": "$11.0"
+      "ticketPrice": "$11"
     },
     {
       "sequence": 8,
@@ -62,7 +62,7 @@
       "startTime": "2023-01-01T23:00",
       "title": "The Batman",
       "runningTime": "1 hour 35 minutes",
-      "ticketPrice": "$9.0"
+      "ticketPrice": "$9"
     }
   ]
 }

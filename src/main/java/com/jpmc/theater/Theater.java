@@ -8,12 +8,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.format.AmountFormatQueryBuilder;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 import lombok.Value;
+import org.javamoney.moneta.Money;
+import org.javamoney.moneta.format.AmountFormatParams;
 
 @Value
 public class Theater {
 
+  public static Locale LOCALE = Locale.US;
+  public static CurrencyUnit CURRENCY_UNIT = Monetary.getCurrency(LOCALE);
+  public static MonetaryAmountFormat MONETARY_AMOUNT_FORMAT = MonetaryFormats.getAmountFormat(
+      AmountFormatQueryBuilder.of(LOCALE).set(AmountFormatParams.PATTERN, "$##.##").build());
   List<Showing> schedule;
 
   LocalDate localDate;
@@ -21,11 +33,13 @@ public class Theater {
   public Theater(LocalDate localDate) {
     this.localDate = localDate;
 
-    Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
-    Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), 11, false);
-    Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), 9, false);
-    schedule = List.of(
-        new Showing(turningRed, LocalDateTime.of(localDate, LocalTime.of(9, 0))),
+    Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90),
+        Money.of(12.5, CURRENCY_UNIT), true);
+    Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), Money.of(11, CURRENCY_UNIT),
+        false);
+    Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), Money.of(9, CURRENCY_UNIT),
+        false);
+    schedule = List.of(new Showing(turningRed, LocalDateTime.of(localDate, LocalTime.of(9, 0))),
         new Showing(spiderMan, LocalDateTime.of(localDate, LocalTime.of(11, 0))),
         new Showing(theBatMan, LocalDateTime.of(localDate, LocalTime.of(12, 50))),
         new Showing(turningRed, LocalDateTime.of(localDate, LocalTime.of(14, 30))),
@@ -33,8 +47,7 @@ public class Theater {
         new Showing(theBatMan, LocalDateTime.of(localDate, LocalTime.of(17, 50))),
         new Showing(turningRed, LocalDateTime.of(localDate, LocalTime.of(19, 30))),
         new Showing(spiderMan, LocalDateTime.of(localDate, LocalTime.of(21, 10))),
-        new Showing(theBatMan, LocalDateTime.of(localDate, LocalTime.of(23, 0)))
-    );
+        new Showing(theBatMan, LocalDateTime.of(localDate, LocalTime.of(23, 0))));
   }
 
   public Reservation reserve(Customer customer, int sequence, int audienceCount) {
@@ -54,10 +67,9 @@ public class Theater {
     for (int i = 0; i < schedule.size(); i++) {
       var showing = schedule.get(i);
       var movie = showing.getMovie();
-      System.out.printf("%s: %s %s (%s) $%s\n", i + 1, showing.getStartTime(),
-          movie.getTitle(),
+      System.out.printf("%s: %s %s (%s) %s\n", i + 1, showing.getStartTime(), movie.getTitle(),
           humanReadableFormat(movie.getRunningTime()),
-          movie.getTicketPrice());
+          MONETARY_AMOUNT_FORMAT.format(movie.getTicketPrice()));
     }
     System.out.println("===================================================");
   }

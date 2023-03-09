@@ -37,7 +37,7 @@ public class TheaterJson {
       this.startTime = showing.getStartTime().toString();
       this.title = movie.getTitle();
       this.runningTime = Theater.humanReadableFormat(movie.getRunningTime());
-      this.ticketPrice = String.format("$%s", movie.getTicketPrice());
+      this.ticketPrice = Theater.MONETARY_AMOUNT_FORMAT.format(movie.getTicketPrice());
     }
   }
 }

@@ -69,5 +69,11 @@
 			<version>1.18.26</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta</artifactId>
+			<version>1.4.1</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 </project>

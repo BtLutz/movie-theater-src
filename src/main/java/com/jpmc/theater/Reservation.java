@@ -1,7 +1,9 @@
 package com.jpmc.theater;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
+import javax.money.RoundingQueryBuilder;
 import lombok.Value;
 
 @Value
@@ -22,8 +24,9 @@ public class Reservation {
     this.sequence = sequence;
   }
 
-  public double totalFee() {
-    var totalFee = showing.calculateFee(audienceCount, sequence);
-    return BigDecimal.valueOf(totalFee).setScale(2, RoundingMode.HALF_UP).doubleValue();
+  public MonetaryAmount totalFee() {
+    var monetaryRounding = Monetary.getRounding(
+        RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_UP).build());
+    return showing.calculateFee(audienceCount, sequence).with(monetaryRounding);
   }
 }

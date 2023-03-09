@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
 import javax.json.JsonObject;
 import net.joshka.junit.json.params.JsonFileSource;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -24,7 +25,7 @@ public class TheaterTests {
     assertEquals(john, reservation.getCustomer());
     assertEquals(audienceCount, reservation.getAudienceCount());
     assertEquals(sequence, reservation.getSequence());
-    assertEquals(40, reservation.totalFee());
+    assertEquals(Money.of(40, Theater.CURRENCY_UNIT), reservation.totalFee());
   }
 
   @Test
@@ -32,7 +33,7 @@ public class TheaterTests {
     var theater = new Theater(LocalDate.of(2023, 1, 1));
     var john = new Customer("John Doe");
     var reservation = theater.reserve(john, 2, 4);
-    assertEquals(37.5, reservation.totalFee());
+    assertEquals(Money.of(37.5, Theater.CURRENCY_UNIT), reservation.totalFee());
   }
 
   @ParameterizedTest
