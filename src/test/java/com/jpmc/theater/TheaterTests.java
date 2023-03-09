@@ -1,5 +1,10 @@
 package com.jpmc.theater;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDate;
+import javax.json.JsonObject;
+import net.joshka.junit.json.params.JsonFileSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -11,7 +16,7 @@ public class TheaterTests {
 
   @Test
   void testReserveWithSpecialDiscount() {
-    var theater = new Theater();
+    var theater = new Theater(LocalDate.of(2023, 1, 1));
     var john = new Customer("John Doe");
     var audienceCount = 4;
     var sequence = 5;
@@ -24,7 +29,7 @@ public class TheaterTests {
 
   @Test
   void testReserveWithMatineeDiscount() {
-    var theater = new Theater();
+    var theater = new Theater(LocalDate.of(2023, 1, 1));
     var john = new Customer("John Doe");
     var reservation = theater.reserve(john, 2, 4);
     assertEquals(37.5, reservation.totalFee());
@@ -33,7 +38,7 @@ public class TheaterTests {
   @ParameterizedTest
   @ValueSource(ints = {-1, 0, 10})
   void testReserveWithInvalidSequence(int sequence) {
-    var theater = new Theater();
+    var theater = new Theater(LocalDate.of(2023, 1, 1));
     var john = new Customer("John Doe");
     assertThrows(IllegalArgumentException.class, () -> theater.reserve(john, sequence, 4));
   }
@@ -41,14 +46,22 @@ public class TheaterTests {
   @ParameterizedTest
   @ValueSource(ints = {-1, 0})
   void testReserveWithInvalidAudienceCount(int audienceCount) {
-    var theater = new Theater();
+    var theater = new Theater(LocalDate.of(2023, 1, 1));
     var john = new Customer("John Doe");
     assertThrows(IllegalArgumentException.class, () -> theater.reserve(john, 1, audienceCount));
   }
 
   @Test
   void printMovieSchedule() {
-    Theater theater = new Theater();
+    Theater theater = new Theater(LocalDate.of(2023, 1, 1));
     theater.printSchedule();
+  }
+
+  @ParameterizedTest
+  @JsonFileSource(resources = "/schedule.json")
+  void testGetJsonSchedule(JsonObject schedule) throws JsonProcessingException {
+    var theater = new Theater(LocalDate.of(2023, 1, 1));
+    var jsonNode = new ObjectMapper().readTree(schedule.toString());
+    assertEquals(jsonNode, theater.getJsonSchedule());
   }
 }

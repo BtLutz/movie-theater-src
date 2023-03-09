@@ -1,0 +1,68 @@
+{
+  "localDate": "2023-01-01",
+  "schedule": [
+    {
+      "sequence": 1,
+      "startTime": "2023-01-01T09:00",
+      "title": "Turning Red",
+      "runningTime": "1 hour 25 minutes",
+      "ticketPrice": "$11.0"
+    },
+    {
+      "sequence": 2,
+      "startTime": "2023-01-01T11:00",
+      "title": "Spider-Man: No Way Home",
+      "runningTime": "1 hour 30 minutes",
+      "ticketPrice": "$12.5"
+    },
+    {
+      "sequence": 3,
+      "startTime": "2023-01-01T12:50",
+      "title": "The Batman",
+      "runningTime": "1 hour 35 minutes",
+      "ticketPrice": "$9.0"
+    },
+    {
+      "sequence": 4,
+      "startTime": "2023-01-01T14:30",
+      "title": "Turning Red",
+      "runningTime": "1 hour 25 minutes",
+      "ticketPrice": "$11.0"
+    },
+    {
+      "sequence": 5,
+      "startTime": "2023-01-01T16:10",
+      "title": "Spider-Man: No Way Home",
+      "runningTime": "1 hour 30 minutes",
+      "ticketPrice": "$12.5"
+    },
+    {
+      "sequence": 6,
+      "startTime": "2023-01-01T17:50",
+      "title": "The Batman",
+      "runningTime": "1 hour 35 minutes",
+      "ticketPrice": "$9.0"
+    },
+    {
+      "sequence": 7,
+      "startTime": "2023-01-01T19:30",
+      "title": "Turning Red",
+      "runningTime": "1 hour 25 minutes",
+      "ticketPrice": "$11.0"
+    },
+    {
+      "sequence": 8,
+      "startTime": "2023-01-01T21:10",
+      "title": "Spider-Man: No Way Home",
+      "runningTime": "1 hour 30 minutes",
+      "ticketPrice": "$12.5"
+    },
+    {
+      "sequence": 9,
+      "startTime": "2023-01-01T23:00",
+      "title": "The Batman",
+      "runningTime": "1 hour 35 minutes",
+      "ticketPrice": "$9.0"
+    }
+  ]
+}
