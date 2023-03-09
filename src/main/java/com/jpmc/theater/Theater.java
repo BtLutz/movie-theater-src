@@ -2,7 +2,6 @@ package com.jpmc.theater;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jpmc.theater.json.TheaterJson;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,12 +9,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import lombok.Value;
 
+@Value
 public class Theater {
 
-  private final List<Showing> schedule;
+  List<Showing> schedule;
 
-  private final LocalDate localDate;
+  LocalDate localDate;
 
   public Theater(LocalDate localDate) {
     this.localDate = localDate;
@@ -63,7 +64,7 @@ public class Theater {
 
   public JsonNode getJsonSchedule() {
     var theaterJson = new TheaterJson(this);
-    return new ObjectMapper().registerModule(new JavaTimeModule()).valueToTree(theaterJson);
+    return new ObjectMapper().valueToTree(theaterJson);
   }
 
   public static String humanReadableFormat(Duration duration) {
@@ -76,14 +77,6 @@ public class Theater {
 
   public static String handlePlural(long value) {
     return value == 1 ? "" : "s";
-  }
-
-  public List<Showing> getSchedule() {
-    return schedule;
-  }
-
-  public LocalDate getLocalDate() {
-    return localDate;
   }
 
   public static void main(String[] args) {

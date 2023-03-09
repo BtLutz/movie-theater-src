@@ -1,24 +1,13 @@
 package com.jpmc.theater;
 
 import java.time.LocalDateTime;
+import lombok.Value;
 
+@Value
 public class Showing {
 
-  private final Movie movie;
-  private final LocalDateTime startTime;
-
-  public Showing(Movie movie, LocalDateTime startTime) {
-    this.movie = movie;
-    this.startTime = startTime;
-  }
-
-  public Movie getMovie() {
-    return movie;
-  }
-
-  public LocalDateTime getStartTime() {
-    return startTime;
-  }
+  Movie movie;
+  LocalDateTime startTime;
 
   public double calculateFee(int audienceCount, int sequence) {
     return movie.calculateTicketPrice(sequence, startTime) * audienceCount;
